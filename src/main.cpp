@@ -1,55 +1,32 @@
 #include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_TSL2561_U.h>
 
-/*
-   DigitalReadSerial
+Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
+sensors_event_t event;
 
-   Reads a digital input on pin 2, prints the result to the Serial Monitor
-
-   This example code is in the public domain.
-
-   http://www.arduino.cc/en/Tutorial/DigitalReadSerial
- */
-
-// digital pin 2 has a pushbutton attached to it. Give it a name:
-int  pushButton   = 2;
-bool pushedBefore = false;
-bool firstText    = false;
-int  msTotal      = 0;
-int  waitTime     = 500;
-
-
-// the setup routine runs once when you press reset:
 void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-
-  // make the pushbutton's pin an input:
-  pinMode(pushButton, INPUT_PULLUP);
+  tsl.enableAutoRange(true);
+  tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_13MS);
 }
 
-// the loop routine runs over and over again forever:
-void loop() {
-  // read the input pin:
-  int buttonState = digitalRead(pushButton);
+void loop()  {
+  tsl.getEvent(&event);
 
-  if (buttonState == 0) {
-    if (pushedBefore == true) {
-      msTotal += waitTime;
-    } else {
-      msTotal = waitTime;
-    }
-    pushedBefore = true;
+  if (event.light)
+  {
+    Serial.print(event.light);
+    Serial.println(" lux");
+  }
+  else
+  {
+    /* If event.light = 0 lux the sensor is probably saturated
+       and no reliable data could be generated! */
+    Serial.println("Sensor overload");
   }
 
-  if ((buttonState == 0) && (msTotal >= 2000) && (msTotal < 2000 + waitTime)) {
-    Serial.println("on");
-  } else if ((buttonState == 1) && (msTotal >= 2000 and pushedBefore == true)) {
-    Serial.println("off");
-  }
-
-  if (buttonState == 1) {
-    msTotal      = 0;
-    pushedBefore = false;
-  }
-  delay(waitTime);
+  delay(500);
 }

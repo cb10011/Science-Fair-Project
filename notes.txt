@@ -1,0 +1,2 @@
+Lux sensor information
+https://learn.adafruit.com/tsl2561/wiring
