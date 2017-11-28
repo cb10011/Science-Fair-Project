@@ -1,2 +1,5 @@
 Lux sensor information
 https://learn.adafruit.com/tsl2561/wiring
+
+Current sensor information
+https://learn.adafruit.com/adafruit-ina219-current-sensor-breakout/overview

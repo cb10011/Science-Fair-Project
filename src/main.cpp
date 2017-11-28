@@ -2,31 +2,37 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2561_U.h>
+#include <Adafruit_INA219.h>
 
-Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
-sensors_event_t event;
+Adafruit_INA219 ina219;
 
 void setup() {
-  // initialize serial communication at 9600 bits per second:
+  uint32_t currentFrequency;
+
   Serial.begin(9600);
-  tsl.enableAutoRange(true);
-  tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_13MS);
+  Serial.println("Hello!");
+
+  Serial.println("Measuring voltage and current with INA219...");
+  ina219.begin();
 }
 
-void loop()  {
-  tsl.getEvent(&event);
+void loop(void)
+{
+  float shuntvoltage = 0;
+  float busvoltage   = 0;
+  float current_mA   = 0;
+  float loadvoltage  = 0;
 
-  if (event.light)
-  {
-    Serial.print(event.light);
-    Serial.println(" lux");
-  }
-  else
-  {
-    /* If event.light = 0 lux the sensor is probably saturated
-       and no reliable data could be generated! */
-    Serial.println("Sensor overload");
-  }
+  shuntvoltage = ina219.getShuntVoltage_mV();
+  busvoltage   = ina219.getBusVoltage_V();
+  current_mA   = ina219.getCurrent_mA();
+  loadvoltage  = busvoltage + (shuntvoltage / 1000);
 
-  delay(500);
+  Serial.print("Bus Voltage:   "); Serial.print(busvoltage); Serial.println(" V");
+  Serial.print("Shunt Voltage: "); Serial.print(shuntvoltage); Serial.println(" mV");
+  Serial.print("Load Voltage:  "); Serial.print(loadvoltage); Serial.println(" V");
+  Serial.print("Current:       "); Serial.print(current_mA); Serial.println(" mA");
+  Serial.println("");
+
+  delay(2000);
 }

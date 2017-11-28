@@ -1,0 +1,11 @@
+1. Install Atom editor with Platform.io plugins to your computer
+2. Get an Arduino Uno, and connect the Arduino to your computer's USB input with a _____
+--Setting up luminosity sensor--
+3. Plug the sensor's SCL into the Arduino's SCL, using a male/female small Wire
+4. Plug the sensor's SDA into the Arduino's SDA, again using another male/female Wire
+5. Using a small red wire, connect the senor's VIN to the arduino's 5.0v (5 Volt) port
+6. Using a small black wire, connenct the sensor's GND (Ground, or negative) to the arduino's GND
+7. Go to https://learn.adafruit.com/tsl2561/arduino-code, and download the Adafruit_TSL2561
+V2 Library and the Adafruit_Sensor Library. They are the two big green buttons at the top of
+the page. Extract both libraries into the lib section of the atom editor project files
+8. go to github ----------
