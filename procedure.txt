@@ -1,5 +1,5 @@
 1. Install Atom editor with Platform.io plugins to your computer
-2. Get an Arduino Uno, and connect the Arduino to your computer's USB input with a _____
+2. Get an Arduino Uno, and connect the Arduino to your computer's USB input with a USB breakout
 --Setting up luminosity sensor--
 3. Plug the sensor's SCL into the Arduino's SCL, using a male/female small Wire
 4. Plug the sensor's SDA into the Arduino's SDA, again using another male/female Wire
@@ -8,4 +8,11 @@
 7. Go to https://learn.adafruit.com/tsl2561/arduino-code, and download the Adafruit_TSL2561
 V2 Library and the Adafruit_Sensor Library. They are the two big green buttons at the top of
 the page. Extract both libraries into the lib section of the atom editor project files
-8. go to github ----------
+--Setting up current Sensor--
+9. plug the sensor's VCC into the second Arduino 5.0v
+10. Plug the sensor's GND into a different GND on the arduino
+11. Plug the sensor's SCL into the arduino's A5 (Analog 5)
+12. Plug the sensor's SDA into the arduino's A4 (Analog 4)
+13. Go to https://learn.adafruit.com/adafruit-ina219-current-sensor-breakout/arduino-code, and download the Adafruit_INA219.
+It is the big green button at the top. Then, like the light sensor libraries, extract it and place it into the lib section of the atom editor
+14. go to github at ________ and download the source code, then open it in Atom. Click 'platformIO' at the top, and then click upload
